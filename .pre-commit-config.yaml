@@ -26,5 +26,5 @@ repos:
       # Run the linter one last time to check for remaining issues.
       - id: ruff
         name: ruff check
-        args: [--output-format concise] # Makes the ruff check output more legible.
+        args: [--output-format, concise] # Makes the ruff check output more legible.
         types_or: [python, pyi] # Only scan .py files (and not jupyter notebooks)

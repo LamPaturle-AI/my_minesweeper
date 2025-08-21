@@ -38,6 +38,7 @@ exclude = [ # Scripts or folders to exclude from linting/formatting
 
 [tool.ruff.lint]
 ignore = [ # Rules to ignore. In this example these are all docstring (D) related rules.
+    "S311", # cryptographic strength isn't needed (usually the case in games)
     "S113", # Usage of requests without timeout.
     "N803", # Argument name should be lowercase (Will be an issue for X_train, X_test naming convention).
     "N806"  # Variable in function should be lowercase (Will be an issue for the same reason as N803)
