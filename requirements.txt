@@ -1,3 +1,4 @@
+# from pip freeze > requirements.txt
 babel==2.17.0
 backrefs==5.9
 certifi==2025.8.3
