@@ -14,13 +14,25 @@ jobs:
       # Checkout current branch
       - uses: "actions/checkout@v3"
 
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Install library
+        run: poetry install
+      - name: Run tests
+        run: |
+          poetry run python -m pytest
+
       # Authenticate via Service Account Key JSON
       # See https://github.com/google-github-actions/auth#authenticating-via-service-account-key-json-1
       - id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
           credentials_json: "${{ secrets.GCP_KEY }}"
-
+      
       # Use Google official GHA to deploy 🎉
       - id: "deploy"
         uses: "google-github-actions/deploy-appengine@v1"
