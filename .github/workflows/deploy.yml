@@ -32,7 +32,7 @@ jobs:
         uses: "google-github-actions/auth@v1"
         with:
           credentials_json: "${{ secrets.GCP_KEY }}"
-      
+
       # Use Google official GHA to deploy 🎉
       - id: "deploy"
         uses: "google-github-actions/deploy-appengine@v1"
