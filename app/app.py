@@ -1,12 +1,12 @@
 # app.py
-import sys
 import os
-from flask import Flask, render_template, request, redirect, url_for
+import sys
+
+from flask import Flask, Response, redirect, render_template, url_for
 
 # Add the src directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from src.my_minesweeper.minesweeper import Minesweeper
-
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ game = Minesweeper(5, 5, 3)
 
 
 @app.route("/")
-def index():
+def index() -> str:
     board = game.get_board()
     if game.is_winner():
         return render_template("index.html", board=board, message="🔥 You Win! 🔥")
@@ -23,20 +23,18 @@ def index():
 
 
 @app.route("/reveal/<int:row>/<int:col>")
-def reveal(row, col):
+def reveal(row: int, col: int) -> Response:
     result = game.reveal(row, col)
     if result == "Game Over":
-        return render_template(
-            "index.html", board=game.board, message="🥲 Game Over! 🥲"
-        )
+        return render_template("index.html", board=game.board, message="🥲 Game Over! 🥲")
     return redirect(url_for("index"))
 
 
 @app.route("/restart")
-def restart():
+def restart() -> Response:
     game.restart()
     return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=int(os.environ.get("PORT", 8080)))
+    app.run(port=int(os.environ.get("PORT", 8080)))
